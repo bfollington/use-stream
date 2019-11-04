@@ -29,7 +29,7 @@ Then finally, add the `Provider` to your app.
 const App = () => {
   return (
     <EventStreamContext.Provider value={stream}>
-      {/* my phenominal app goes here */}
+      {/* my phenomenal app goes here */}
     </EventStreamContext.Provider>
   )
 }
