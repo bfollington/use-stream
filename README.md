@@ -1,44 +1,72 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This an exploration of an idea I've had for a while. While we've found that the built-in React hooks (`useState`, `useReducer`) are more than complete enough to replace a state management solution like `redux`, there is more to the picture.
 
-## Available Scripts
+`redux` is used as an event bus as often as it is used for state management. Libraries like `redux-observable` and `redux-sagas` are examples of this pattern in the wild. For me, this is valuable functionality and is missing in our out-of-the-box React setup.
 
-In the project directory, you can run:
+So this is my attempt to bring it back! This is a set of hooks that can create an event bus (via observables) that is stored in context and can be subscribed to and emitted to from throughout the React application tree.
 
-### `yarn start`
+# Setup
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+First, define the types of the events that will be sent along the bus.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```
+export type MouseClicked = { type: 'mouseClicked' }
+export type SpacePressed = { type: 'spacePressed' }
+export type MouseMoved = { type: 'mouseMoved'; location: [number, number] }
 
-### `yarn test`
+export type Events = MouseClicked | SpacePressed | MouseMoved
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Second, create the bus itself.
 
-### `yarn build`
+```
+export const stream = makeEventStream<Events>('main')
+export const EventStreamContext = makeEventStreamContext<Events>()
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Then finally, add the `Provider` to your app.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+const App = () => {
+  return (
+    <EventStreamContext.Provider value={stream}>
+      {/* my phenominal app goes here */}
+    </EventStreamContext.Provider>
+  )
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Subscribing
 
-### `yarn eject`
+```
+export const ClickTracker = () => {
+  const [clicks, setClicks] = useState(0)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  useStreamCallback(
+    EventStreamContext,
+    s =>
+      s
+        .pipe(
+          filter(x => x.type === 'mouseClicked'),
+        )
+        .subscribe(_ => {
+          setClicks(clicks + 1)
+        }),
+    [clicks, setClicks]
+  )
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  return <div>Clicked: {clicks} times</div>
+}
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# Emitting
 
-## Learn More
+```
+export const ClickEmitter = () => {
+  const emit = useEmit(EventStreamContext)
+  const onClick = () => emit({ type: 'mouseClicked' })
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  return <button onClick={onClick}>Click Me!</button>
+}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
