@@ -8,7 +8,7 @@ export type EventStream<T> = {
   stream: Observable<T>
 }
 
-const nullStream = <T>(): EventStream<T> => ({
+const zero = <T>(): EventStream<T> => ({
   name: 'null',
   emit: () => {},
   close: () => {},
@@ -26,7 +26,7 @@ export const makeEventStream = <T>(name: string): EventStream<T> => {
   }
 }
 
-export const makeEventStreamContext = <T>() => createContext(nullStream<T>())
+export const makeEventStreamContext = <T>() => createContext(zero<T>())
 
 export const useStream = <T>(ctx: React.Context<EventStream<T>>) =>
   useContext(ctx)
