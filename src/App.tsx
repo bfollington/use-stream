@@ -6,7 +6,7 @@ import { EscapeSource } from './subscribers/EscapeSource'
 import { EventLogger } from './subscribers/EventLogger'
 import { EventStreamContext, stream } from './subscribers/events'
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <EventStreamContext.Provider value={stream}>
       <div className="App">
