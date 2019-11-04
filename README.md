@@ -8,7 +8,7 @@ So this is my attempt to bring it back! This is a set of hooks that can create a
 
 First, define the types of the events that will be sent along the bus.
 
-```
+```ts
 export type MouseClicked = { type: 'mouseClicked' }
 export type SpacePressed = { type: 'spacePressed' }
 export type MouseMoved = { type: 'mouseMoved'; location: [number, number] }
@@ -18,14 +18,14 @@ export type Events = MouseClicked | SpacePressed | MouseMoved
 
 Second, create the bus itself.
 
-```
+```ts
 export const stream = makeEventStream<Events>('main')
 export const EventStreamContext = makeEventStreamContext<Events>()
 ```
 
 Then finally, add the `Provider` to your app.
 
-```
+```tsx
 const App = () => {
   return (
     <EventStreamContext.Provider value={stream}>
@@ -37,7 +37,7 @@ const App = () => {
 
 # Subscribing
 
-```
+```tsx
 export const ClickTracker = () => {
   const [clicks, setClicks] = useState(0)
 
@@ -61,7 +61,7 @@ export const ClickTracker = () => {
 
 # Emitting
 
-```
+```tsx
 export const ClickEmitter = () => {
   const emit = useEmit(EventStreamContext)
   const onClick = () => emit({ type: 'mouseClicked' })
