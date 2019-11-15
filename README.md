@@ -1,3 +1,11 @@
+<h1 align="center">use-stream</h1>
+
+<p align="center">
+<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/bfollington/use-stream">
+<img alt="GitHub" src="https://img.shields.io/github/license/bfollington/use-stream">
+
+</p><br>
+
 This an exploration of an idea I've had for a while. While we've found that the built-in React hooks (`useState`, `useReducer`) are more than complete enough to replace a state management solution like `redux`, there is more to the picture.
 
 `redux` is used as an event bus as often as it is used for state management. Libraries like `redux-observable` and `redux-sagas` are examples of this pattern in the wild. For me, this is valuable functionality and is missing in our out-of-the-box React setup.
