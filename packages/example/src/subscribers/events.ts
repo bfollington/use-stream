@@ -1,4 +1,4 @@
-import { makeEventStream, makeEventStreamContext } from '../hooks/useStream'
+import { makeEventStream, makeEventStreamContext } from '@twopm/use-stream'
 
 export type MouseClicked = { type: 'mouseClicked' }
 export type SpacePressed = { type: 'spacePressed' }

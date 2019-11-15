@@ -1,0 +1,53 @@
+{
+  "name": "@twopm/use-stream",
+  "version": "0.0.0",
+  "description": "Observable streams as a communication buffer in react",
+  "keywords": [
+    "react",
+    "rxjs",
+    "hook"
+  ],
+  "author": "bfollington",
+  "license": "MIT",
+  "repository": "bfollington/use-stream",
+  "main": "lib/index.js",
+  "types": "lib/",
+  "files": [
+    "lib"
+  ],
+  "engines": {
+    "node": "~12",
+    "npm": "~6"
+  },
+  "scripts": {
+    "test": "yarn use-test-config && cross-env CI=1 react-scripts test --env=jsdom; yarn use-normal-config",
+    "test-ci": "cross-env CI=1 react-scripts test --env=jsdom",
+    "test:watch": "react-scripts test --env=jsdom",
+    "build": "tsc -p tsconfig.json --outDir lib",
+    "start": "yarn storybook",
+    "typesync": "npx typesync",
+    "lint": "eslint src/ --ext .ts,.tsx",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "use-test-config": "test ! -f tsconfig.json.original && mv tsconfig.json tsconfig.json.original && cp tsconfig.test.json tsconfig.json",
+    "use-normal-config": "test -f tsconfig.json.original && rm tsconfig.json && mv tsconfig.json.original tsconfig.json"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "^15.0.0 || ^16.0.0 || ^16.8.22",
+    "rxjs": "^6.5.3"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.0.0",
+    "@testing-library/react": "^8.0.4",
+    "@testing-library/react-hooks": "^3.1.0",
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.7.9",
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.4",
+    "@typescript-eslint/parser": "^2.7.0",
+    "cross-env": "^5.2.0",
+    "eslint-plugin-react": "^7.13.0",
+    "prettier": "^1.17.1",
+    "typescript": "^3.7.2"
+  }
+}

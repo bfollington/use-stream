@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { filter, tap } from 'rxjs/operators'
 import { EventStreamContext } from './events'
-import { useEmit, useStreamCallback } from '../hooks/useStream'
+import { useEmit, useStreamCallback } from '@twopm/use-stream'
 
 export const ClickSource = () => {
   const [clicks, setClicks] = useState(0)

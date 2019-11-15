@@ -78,3 +78,21 @@ export const ClickEmitter = () => {
 }
 
 ```
+
+## Running this repo
+
+### Bootstrap
+
+```
+yarn
+yarn bootstrap
+```
+
+### Running the examples
+
+```
+cd packages/use-stream
+yarn build
+cd ../example
+yarn start
+```

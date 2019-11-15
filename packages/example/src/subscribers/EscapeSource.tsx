@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { filter, tap } from 'rxjs/operators'
 import { EventStreamContext } from './events'
-import { useEmit, useStreamCallback } from '../hooks/useStream'
+import { useEmit, useStreamCallback } from '@twopm/use-stream'
 
 export const EscapeSource = () => {
   const [presses, setPresses] = useState(0)

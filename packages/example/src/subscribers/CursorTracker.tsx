@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useStreamCallback } from '../hooks/useStream'
+import { useStreamCallback } from '@twopm/use-stream'
 import { EventStreamContext, MouseMoved } from './events'
 import { filter, map } from 'rxjs/operators'
 
