@@ -17,6 +17,12 @@ This an exploration of an idea I've had for a while. While we've found that the 
 
 So this is my attempt to bring it back! This is a set of hooks that can create an event bus (via observables) that is stored in context and can be subscribed to and emitted to from throughout the React application tree.
 
+# Installation
+
+```
+yarn add @twopm/use-stream
+```
+
 # Setup
 
 First, define the types of the events that will be sent along the bus.
@@ -32,6 +38,8 @@ export type Events = MouseClicked | SpacePressed | MouseMoved
 Second, create the bus itself.
 
 ```ts
+import { makeEventStream, makeEventStreamContext } from '@twopm/use-stream'
+
 export const stream = makeEventStream<Events>('main')
 export const EventStreamContext = makeEventStreamContext<Events>()
 ```
@@ -39,6 +47,8 @@ export const EventStreamContext = makeEventStreamContext<Events>()
 Then finally, add the `Provider` to your app.
 
 ```tsx
+import { EventStreamContext } from './streamConfig'
+
 const App = () => {
   return (
     <EventStreamContext.Provider value={stream}>
@@ -51,6 +61,10 @@ const App = () => {
 # Subscribing
 
 ```tsx
+import { useStreamCallback } from '@twopm/use-stream'
+import { EventStreamContext } from './streamConfig'
+import { filter } from 'rxjs/operators'
+
 export const ClickTracker = () => {
   const [clicks, setClicks] = useState(0)
 
@@ -75,6 +89,9 @@ export const ClickTracker = () => {
 # Emitting
 
 ```tsx
+import { useEmit } from '@twopm/use-stream'
+import { EventStreamContext } from './streamConfig'
+
 export const ClickEmitter = () => {
   const emit = useEmit(EventStreamContext)
   const onClick = () => emit({ type: 'mouseClicked' })
