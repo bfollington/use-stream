@@ -4,6 +4,10 @@
 <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/bfollington/use-stream">
 <img alt="GitHub" src="https://img.shields.io/github/license/bfollington/use-stream">
 
+<br>
+  <img alt="npm" src="https://img.shields.io/npm/v/@twopm/use-stream">
+<img alt="npm bundle size" src="https://img.shields.io/bundlephobia/min/@twopm/use-stream">
+
 </p><br>
 
 This an exploration of an idea I've had for a while. While we've found that the built-in React hooks (`useState`, `useReducer`) are more than complete enough to replace a state management solution like `redux`, there is more to the picture.
