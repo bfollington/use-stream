@@ -5,7 +5,7 @@
     "lerna": "^3.18.4"
   },
   "scripts": {
-    "netlify": "yarn bootstrap && lerna exec -- yarn build",
+    "netlify": "yarn bootstrap && cd packages/use-stream && yarn build && cd ../example && yarn build",
     "publish": "lerna publish",
     "changed": "lerna changed",
     "bootstrap": "lerna bootstrap",
