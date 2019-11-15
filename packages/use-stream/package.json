@@ -1,6 +1,6 @@
 {
   "name": "@twopm/use-stream",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Observable streams as a communication buffer in react",
   "keywords": [
     "react",
@@ -31,7 +31,6 @@
     "use-test-config": "test ! -f tsconfig.json.original && mv tsconfig.json tsconfig.json.original && cp tsconfig.test.json tsconfig.json",
     "use-normal-config": "test -f tsconfig.json.original && rm tsconfig.json && mv tsconfig.json.original tsconfig.json"
   },
-  "dependencies": {},
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0 || ^16.8.22",
     "rxjs": "^6.5.3"

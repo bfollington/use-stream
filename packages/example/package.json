@@ -1,18 +1,18 @@
 {
   "name": "use-stream-example",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@twopm/use-stream": "^0.0.1",
     "@types/jest": "24.0.21",
     "@types/node": "12.12.5",
     "@types/react": "16.9.11",
     "@types/react-dom": "16.9.3",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-scripts": "3.2.0",
     "rxjs": "^6.5.3",
-    "typescript": "3.6.4",
-    "@twopm/use-stream": "^0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "typescript": "3.6.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,7 +34,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
   }
 }
