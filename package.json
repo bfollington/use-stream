@@ -5,6 +5,8 @@
     "lerna": "^3.18.4"
   },
   "scripts": {
+    "publish": "lerna publish",
+    "changed": "lerna changed",
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean"
   }
