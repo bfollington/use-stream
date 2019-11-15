@@ -1,6 +1,7 @@
 <h1 align="center">use-stream</h1>
 
 <p align="center">
+  <a href="https://github.com/bfollington/use-stream/actions?query=workflow%3A%22Build%22"><img alt="Build" src="https://github.com/bfollington/restack/workflows/Build/badge.svg"></a>
 <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/bfollington/use-stream">
 <img alt="GitHub" src="https://img.shields.io/github/license/bfollington/use-stream">
 
