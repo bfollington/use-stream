@@ -28,3 +28,6 @@ jobs:
     - name: Build use-stream
       working-directory: packages/use-stream
       run: yarn build
+    - name: Build example
+      working-directory: packages/example
+      run: yarn build
