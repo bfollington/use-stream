@@ -15,7 +15,7 @@ This an exploration of an idea I've had for a while. While we've found that the 
 
 `redux` is used as an event bus as often as it is used for state management. Libraries like `redux-observable` and `redux-sagas` are examples of this pattern in the wild. For me, this is valuable functionality and is missing in our out-of-the-box React setup.
 
-So this is my attempt to bring it back! This is a set of hooks that can create an event bus (via observables) that is stored in context and can be subscribed to and emitted to from throughout the React application tree. Importantly, this is a separate stream to the actions that update our state which allows for better separation of concerns.
+So this is my attempt to bring it back! This is a set of hooks that can create an event bus (via observables) that is stored in context. The event bus can be *subscribed to* and *emitted to* throughout the React application tree. Importantly, this is a separate stream to the actions that update our state which allows for better separation of concerns.
 
 # Installation
 
