@@ -1,6 +1,6 @@
 {
   "name": "@twopm/use-stream",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Observable streams as a communication buffer in react",
   "keywords": [
     "react",
