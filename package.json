@@ -6,7 +6,8 @@
   },
   "scripts": {
     "netlify": "yarn bootstrap && cd packages/use-stream && yarn build && cd ../example && yarn build",
-    "publish": "lerna publish",
+    "build": "cd packages/use-stream && yarn build",
+    "publish": "yarn build && lerna publish",
     "changed": "lerna changed",
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean"
