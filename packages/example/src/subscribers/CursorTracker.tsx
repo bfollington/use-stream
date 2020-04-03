@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
-import { useStreamCallback } from '@twopm/use-stream'
-import { EventStreamContext, MouseMoved } from './events'
 import { filter, map } from 'rxjs/operators'
+import { MouseMoved, useSubscribe } from './events'
 
 export const CursorTracker = () => {
   const [position, setPosition] = useState([0, 0])
 
-  useStreamCallback(
-    EventStreamContext,
+  useSubscribe(
     s =>
       s
         .pipe(

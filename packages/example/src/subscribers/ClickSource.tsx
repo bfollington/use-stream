@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { filter, tap } from 'rxjs/operators'
-import { EventStreamContext } from './events'
-import { useEmit, useStreamCallback } from '@twopm/use-stream'
+import { useEmit, useSubscribe } from './events'
 
 export const ClickSource = () => {
   const [clicks, setClicks] = useState(0)
-  const emit = useEmit(EventStreamContext)
+  const emit = useEmit()
   const onClick = () => emit({ type: 'mouseClicked' })
 
-  useStreamCallback(
-    EventStreamContext,
+  useSubscribe(
     s =>
       s
         .pipe(

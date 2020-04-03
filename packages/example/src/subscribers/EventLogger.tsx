@@ -1,14 +1,12 @@
-import { useStreamCallback } from '@twopm/use-stream'
 import React, { useState } from 'react'
 import { filter } from 'rxjs/operators'
-import { Events, EventStreamContext } from './events'
+import { Events, useSubscribe } from './events'
 
 export const EventLogger = () => {
   const [events, setEvents] = useState<Events[]>([])
   const [eventCount, setEventCount] = useState(0)
 
-  useStreamCallback(
-    EventStreamContext,
+  useSubscribe(
     s =>
       s
         .pipe(filter(x => x.type !== 'mouseMoved'))
@@ -16,11 +14,10 @@ export const EventLogger = () => {
     [events, setEvents]
   )
 
-  useStreamCallback(
-    EventStreamContext,
-    s => s.subscribe(_ => setEventCount(eventCount + 1)),
-    [eventCount, setEventCount]
-  )
+  useSubscribe(s => s.subscribe(_ => setEventCount(eventCount + 1)), [
+    eventCount,
+    setEventCount,
+  ])
 
   return (
     <div>
