@@ -38,7 +38,7 @@ export function createHooks<T>(ctx: React.Context<EventStream<T>>) {
       const stream = useContext(ctx).stream
       return useEffect(() => {
         const sub = s$(stream)
-        return sub.unsubscribe()
+        return () => sub.unsubscribe()
       }, deps)
     },
   }
