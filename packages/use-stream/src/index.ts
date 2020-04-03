@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect } from 'react'
+import { createContext, useContext, useEffect, DependencyList } from 'react'
 import { from, Observable, Subject, Subscription } from 'rxjs'
 
 export type EventStream<T> = {
@@ -28,36 +28,17 @@ export const makeEventStream = <T>(name: string): EventStream<T> => {
 
 export const makeEventStreamContext = <T>() => createContext(zero<T>())
 
-export const useStream = <T>(ctx: React.Context<EventStream<T>>) =>
-  useContext(ctx)
-export const useEmit = <T>(ctx: React.Context<EventStream<T>>) =>
-  useContext(ctx).emit
-export const useSubscribe = <T>(ctx: React.Context<EventStream<T>>) =>
-  useContext(ctx).stream
-
-export function useStreamEffect<T>(
-  ctx: React.Context<EventStream<T>>,
-  observer: (o: Observable<T>) => Subscription
-) {
-  const stream = useSubscribe(ctx)
-  useEffect(() => {
-    const s = observer(stream)
-    return () => s.unsubscribe()
-  }, [observer, stream, ctx])
-}
-
-export function useStreamCallback<T>(
-  ctx: React.Context<EventStream<T>>,
-  cb: (s: Observable<T>) => Subscription,
-  deps: readonly any[]
-) {
-  return useStreamEffect(ctx, useCallback(cb, deps))
-}
+export const useStream = <T>(ctx: React.Context<EventStream<T>>) => useContext(ctx)
 
 export function createHooks<T>(ctx: React.Context<EventStream<T>>) {
   return {
     useStream: () => useContext(ctx),
     useEmit: () => useContext(ctx).emit,
-    useSubscribe: () => useContext(ctx).stream,
+    useSubscribe: function(s$: (o: Observable<T>) => Subscription, deps?: DependencyList): void {
+      return useEffect(() => {
+        const sub = s$(useContext(ctx).stream)
+        return sub.unsubscribe()
+      }, deps)
+    },
   }
 }

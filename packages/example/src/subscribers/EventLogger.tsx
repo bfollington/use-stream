@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { Events, EventStreamContext } from './events'
 import { useStreamCallback } from '@twopm/use-stream'
+import React, { useState } from 'react'
 import { filter } from 'rxjs/operators'
+import { Events, EventStreamContext } from './events'
 
 export const EventLogger = () => {
   const [events, setEvents] = useState<Events[]>([])
