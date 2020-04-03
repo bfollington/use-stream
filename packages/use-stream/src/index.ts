@@ -53,3 +53,11 @@ export function useStreamCallback<T>(
 ) {
   return useStreamEffect(ctx, useCallback(cb, deps))
 }
+
+export function createHooks<T>(ctx: React.Context<EventStream<T>>) {
+  return {
+    useStream: () => useContext(ctx),
+    useEmit: () => useContext(ctx).emit,
+    useSubscribe: () => useContext(ctx).stream,
+  }
+}
