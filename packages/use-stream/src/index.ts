@@ -35,8 +35,9 @@ export function createHooks<T>(ctx: React.Context<EventStream<T>>) {
     useStream: () => useContext(ctx),
     useEmit: () => useContext(ctx).emit,
     useSubscribe: function(s$: (o: Observable<T>) => Subscription, deps?: DependencyList): void {
+      const stream = useContext(ctx).stream
       return useEffect(() => {
-        const sub = s$(useContext(ctx).stream)
+        const sub = s$(stream)
         return sub.unsubscribe()
       }, deps)
     },
