@@ -35,13 +35,15 @@ export type MouseMoved = { type: 'mouseMoved'; location: [number, number] }
 export type Events = MouseClicked | SpacePressed | MouseMoved
 ```
 
-Second, create the bus itself.
+Second, create the bus itself and the hooks to use it.
 
 ```ts
 import { makeEventStream, makeEventStreamContext } from '@twopm/use-stream'
 
 export const stream = makeEventStream<Events>('main')
 export const EventStreamContext = makeEventStreamContext<Events>()
+
+export const hooks = createHooks(EventStreamContext)
 ```
 
 Then finally, add the `Provider` to your app.
@@ -62,25 +64,24 @@ const App = () => {
 
 ```tsx
 import { useStreamCallback } from '@twopm/use-stream'
-import { EventStreamContext } from './streamConfig'
+import { EventStreamContext, hooks } from './streamConfig'
 import { filter } from 'rxjs/operators'
 
 export const ClickTracker = () => {
   const [clicks, setClicks] = useState(0)
-
-  useStreamCallback(
-    EventStreamContext,
+  
+  hooks.useSubscribe(
     s =>
       s
         .pipe(
-          filter(x => x.type === 'mouseClicked'),
+          filter(x => x.type === 'mouseClicked')
         )
         .subscribe(_ => {
           setClicks(clicks + 1)
         }),
     [clicks, setClicks]
   )
-
+  
   return <div>Clicked: {clicks} times</div>
 }
 
@@ -89,11 +90,10 @@ export const ClickTracker = () => {
 # Emitting
 
 ```tsx
-import { useEmit } from '@twopm/use-stream'
-import { EventStreamContext } from './streamConfig'
+import { EventStreamContext, hooks } from './streamConfig'
 
 export const ClickEmitter = () => {
-  const emit = useEmit(EventStreamContext)
+  const emit = hooks.useEmit()
   const onClick = () => emit({ type: 'mouseClicked' })
 
   return <button onClick={onClick}>Click Me!</button>
